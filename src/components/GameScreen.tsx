@@ -17,39 +17,48 @@ export function GameScreen({
   onReset,
 }: GameScreenProps) {
   return (
-    <div className="flex flex-col min-h-full bg-gray-50">
+    <div className="flex flex-col min-h-full bg-gradient-to-b from-[#0a0e27] via-[#1a1f3a] to-[#0a0e27] relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-[#ff006e] rounded-full mix-blend-multiply filter blur-3xl opacity-5 -z-10"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#00f5ff] rounded-full mix-blend-multiply filter blur-3xl opacity-5 -z-10"></div>
+
       {/* Header */}
-      <header className="flex items-center justify-between p-3 bg-white border-b border-gray-200">
+      <header className="flex items-center justify-between p-4 bg-[#1a1f3a]/50 backdrop-blur-md border-b border-[#b537f2]/30 z-20">
         <button
           onClick={onReset}
-          className="text-gray-500 text-sm px-3 py-1.5 rounded active:bg-gray-100"
+          className="text-[#00f5ff] hover:text-[#ff006e] px-4 py-2 rounded font-mono uppercase text-sm tracking-widest transition-all duration-200 hover:glow-magenta"
         >
-          ← Back
+          ← BACK
         </button>
-        <h1 className="font-bold text-gray-900">Bingo Mixer</h1>
-        <div className="w-16"></div>
+        <h1 className="font-mono font-bold text-xl text-[#ff006e] uppercase tracking-widest">
+          BINGO MIXER
+        </h1>
+        <div className="w-20"></div>
       </header>
 
       {/* Instructions */}
-      <p className="text-center text-gray-500 text-sm py-2 px-4">
-        Tap a square when you find someone who matches it.
+      <p className="text-center text-[#00f5ff]/70 text-sm py-3 px-4 font-mono uppercase tracking-wider">
+        ⚡ Tap to mark • Get 5 in a row to WIN ⚡
       </p>
 
-      {/* Bingo indicator */}
+      {/* Bingo indicator with dramatic effect */}
       {hasBingo && (
-        <div className="bg-amber-100 text-amber-800 text-center py-2 font-semibold text-sm">
-          🎉 BINGO! You got a line!
+        <div className="bg-gradient-to-r from-[#ff006e] via-[#b537f2] to-[#00f5ff] text-white text-center py-4 font-mono font-bold text-lg uppercase tracking-widest animate-pulse glow-magenta">
+          🎮 BINGO! YOU GOT A LINE! 🎮
         </div>
       )}
 
       {/* Board */}
-      <div className="flex-1 flex items-center justify-center p-3">
+      <div className="flex-1 flex items-center justify-center p-4">
         <BingoBoard
           board={board}
           winningSquareIds={winningSquareIds}
           onSquareClick={onSquareClick}
         />
       </div>
+
+      {/* Bottom gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0a0e27] to-transparent pointer-events-none"></div>
     </div>
   );
 }
