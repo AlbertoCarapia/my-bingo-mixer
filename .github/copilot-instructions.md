@@ -1,11 +1,16 @@
 # Bingo Mixer – AI Assistant Guidelines
 
+## Overview
+Bingo Mixer is a **social bingo game with a Cyberpunk Neon aesthetic**. Players find people matching questions on their card and get 5 in a row to win!
+
+**Current Design**: High-energy Cyberpunk Neon with vibrant magenta/cyan glows and smooth animations.
+
 ## Code Style
 
 This project uses **TypeScript 5.9 with strict mode** (`strict: true`, `noUnusedLocals`, `noUnusedParameters`). Every expression must be fully typed.
 
 - **React 19** with functional components and hooks
-- **Tailwind CSS 4** (via `@tailwindcss/vite` plugin) – apply styles directly to `className` attributes
+- **Tailwind CSS 4** (via `@tailwindcss/vite` plugin) + custom CSS `@theme` variables
 - **Immutability pattern**: All state updates create new objects/arrays, never mutate original state
 - **Props interfaces**: Every component defines explicit prop types; no implicit `any` types
 
@@ -52,7 +57,7 @@ npm run test      # Run Vitest suite (41 tests in bingoLogic.test.ts)
 
 - **Vite 8** configured for React with JSX transform
 - **Vitest** uses jsdom environment + React Testing Library matchers
-- **GitHub Pages**: Builds automatically on push to `main`; repo-aware base path via `VITE_REPO_NAME` env var
+- **GitHub Pages**: Builds automatically on push to `main`; deployed to `https://albertocarapia.github.io/my-bingo-mixer/game/`
 
 ## Conventions & Common Patterns
 
@@ -71,18 +76,30 @@ npm run test      # Run Vitest suite (41 tests in bingoLogic.test.ts)
 - Includes validation (version, array length, square schema) to prevent data corruption
 - Fails safely; corrupted data falls back to fresh start
 
-### Tailwind Colors
-- **Custom colors defined in `index.css`**:
-  - `.marked` class = green marked squares
-  - `.accent` class = primary button color
-  - `.accent-light` = hover state
-- Use Tailwind utilities (`bg-gray-50`, `border-gray-200`, etc.) for standard colors
+## Design System (Cyberpunk Neon)
 
-### Free Space Behavior
-- Cannot be toggled (disabled button)
-- Always `isMarked: true`
-- Included in winning line detection (contributes to row/column/diagonal)
-- Text is "FREE SPACE" (constant from questions.ts)
+### Color Palette
+| Color | Hex | Use |
+|-------|-----|-----|
+| Magenta Neon | `#ff006e` | Primary interactive, highlights |
+| Cyan Electric | `#00f5ff` | Secondary, accents, glow |
+| Purple Neon | `#b537f2` | Borders, depth |
+| Dark BG | `#0a0e27` | Main background |
+| Dark Surface | `#1a1f3a` | Cards, elevated surfaces |
+| White | `#ffffff` | Primary text |
+
+### Typography
+- **Titles**: `Space Mono` 700, uppercase, tracking-widest
+- **Body**: `Inter` 400-500, normal case
+- **Buttons**: `Space Mono` bold, uppercase, tracking-widest
+
+### Key Effects
+- ✨ **Glow**: Magenta for primary, Cyan for secondary (box-shadow with 20px blur)
+- 🌊 **Animations**: `neon-glow` (2s), `cyan-pulse` (2s), `slide-in-top` (0.6s), `bounce-in` (0.4s)
+- 🎬 **Stagger**: Use `animationDelay` for sequential reveals
+- 💫 **Gradients**: `from-[#ff006e] to-[#b537f2]` for depth
+
+📖 **See**: [.github/instructions/design-guide-cyberpunk.instructions.md](.github/instructions/design-guide-cyberpunk.instructions.md) for complete design reference.
 
 ## Workshop & Documentation
 
@@ -97,4 +114,16 @@ Also see [Contributing](../../CONTRIBUTING.md) for code of conduct and CLA.
 
 ---
 
-**When adding features**: Keep game logic pure (test first), props explicit (no implicit any), state immutable, and docs linked (not duplicated).
+**When adding features**:
+- Keep game logic pure (test first)
+- Props explicit (no implicit any)
+- State immutable
+- Follow design system (Cyberpunk Neon palette)
+- Reference docs instead of duplicating
+- Add/update instructions if patterns change
+
+**AI Assistant Tips**:
+- Use Design Guide instructions when styling components (`applyTo: src/components/**/*.tsx`)
+- Reference Tailwind 4 instructions for CSS features
+- Follow frontend-design instructions for avoiding generic AI aesthetics
+- Test all changes with lint + build before proposing
